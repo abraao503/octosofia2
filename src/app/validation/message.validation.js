@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 exports.createMessageValidation = async (request, response, next) => {
   const messageSchema = Joi.object({
-    recipiedId: Joi.number().integer().min(1).required(),
+    recipientId: Joi.number().integer().min(1).required(),
     content: Joi.string().required(),
   });
 
