@@ -24,8 +24,6 @@ class Socket {
       socket.on('disconnect', () => {
         const clientId = socket.decoded_token.id;
         delete this.clients[clientId];
-        console.log(socket.id, 'disconnected');
-        console.log(this.clients);
       });
 
       const clientId = socket.decoded_token.id;
@@ -33,8 +31,6 @@ class Socket {
       if(clientId){
         this.clients[clientId] = socket.id;
       }
-      console.log(`New socket connection: ${socket.id}`);
-      console.log(this.clients);
     });
   }
 
