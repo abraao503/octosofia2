@@ -9,7 +9,16 @@ class MessageController {
 
     try {
       const message = await MessageService.createMessage(userId, content);
-      const userMessage = await UserMessageService.createUserUserMessage(userId, recipientId, message.id);
+
+      const userMessageData = {
+        senderId: userId,
+        recipientId,
+        messageId: message.id,
+        senderIsAdmin: true,
+        recipientIsAdmin: false,
+      }; 
+
+      const userMessage = await UserMessageService.createUserMessage(userMessageData);
       userMessage.message = message;
 
       Socket.sendMessage(recipientId, userMessage);
@@ -21,25 +30,11 @@ class MessageController {
     }
   }
 
-  async index(request, response) {
-    const userId = request.userId;
-
-    try {
-      const messages = await UserMessageService.getUserMessages(userId);
-      
-      return response.json(messages);
-    } catch(err) {
-      console.error(err);
-      return response.status(500).json({error: 'Internal server error.'});
-    }
-  }
-
-  //somentes admins deveriam acessar, necessario configurar
   async show(request, response) {
     const { userId } = request.params;
 
     try {
-      const messages = await UserMessageService.getUserMessages(userId);
+      const messages = await UserMessageService.getAdminMessages(userId);
       
       return response.json(messages);
     } catch(err) {

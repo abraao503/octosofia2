@@ -7,6 +7,7 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
+      sender_is_admin: Sequelize.BOOLEAN,
       sender_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -15,6 +16,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      recipient_is_admin: Sequelize.BOOLEAN,
       message_id: {
         type: Sequelize.INTEGER,
         references: { model: 'messages', key: 'id'},

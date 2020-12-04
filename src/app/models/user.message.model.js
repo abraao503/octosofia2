@@ -7,6 +7,8 @@ class UserMessage extends Model {
       {
         sender_id: Sequelize.INTEGER,
         recipient_id: Sequelize.INTEGER,
+        sender_is_admin: Sequelize.BOOLEAN,
+        recipient_is_admin: Sequelize.BOOLEAN,
       },
       {
         sequelize
