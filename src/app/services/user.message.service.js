@@ -1,6 +1,7 @@
 const UserMessage = require('../models/user.message.model');
 const { Op } = require("sequelize");
 const Message = require('../models/message.model');
+const ConversationService = require('./conversation.service');
 
 class UserMessageService {
   async createUserMessage({
@@ -17,6 +18,10 @@ class UserMessageService {
       sender_is_admin: senderIsAdmin,
       recipient_is_admin: recipientIsAdmin,
     });
+
+    if(!senderIsAdmin){
+      await ConversationService.createConversation(senderId);
+    }
 
     return userMessage.toJSON();
   }
@@ -39,10 +44,6 @@ class UserMessageService {
   async getAdminMessages(userId) {
     const messages = await UserMessage.findAll({
       where: { 
-        [Op.or]: [
-          { sender_id_admin: true }, 
-          { recipient_is_admin: true }
-        ],
         [Op.or]: [
           { sender_id: userId }, 
           { recipient_id: userId }

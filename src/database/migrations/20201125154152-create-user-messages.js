@@ -14,7 +14,7 @@ module.exports = {
       },
       recipient_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       recipient_is_admin: Sequelize.BOOLEAN,
       message_id: {

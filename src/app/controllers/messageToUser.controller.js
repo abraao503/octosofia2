@@ -21,7 +21,7 @@ class MessageController {
       const userMessage = await UserMessageService.createUserMessage(userMessageData);
       userMessage.message = message;
 
-      Socket.sendMessage(recipientId, userMessage);
+      Socket.sendMessageToUser(recipientId, userMessage);
       
       return response.json(userMessage);
     } catch(err) {

@@ -3,10 +3,12 @@ const databaseConfig = require('../config/database');
 
 const Message = require('../app/models/message.model');
 const UserMessage = require('../app/models/user.message.model');
+const Conversation = require('../app/models/conversation.model');
 
 const models = [
   Message,
   UserMessage,
+  Conversation,
 ];
 
 class Database{
