@@ -34,7 +34,7 @@ class UserMessageService {
         as: 'message'
       },
       order: [
-        ['createdAt', 'asc']
+        ['createdAt', 'desc']
       ],
     })
 
@@ -54,7 +54,7 @@ class UserMessageService {
         as: 'message'
       },
       order: [
-        ['createdAt', 'asc']
+        ['createdAt', 'desc']
       ],
     })
 

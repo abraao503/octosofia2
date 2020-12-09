@@ -4,7 +4,7 @@ class ConversationService {
   async listConversation() {
     const conversation = await Conversation.findAll({
       order: [
-        ['updatedAt', 'asc']
+        ['updatedAt', 'desc']
       ],
     });
 
