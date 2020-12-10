@@ -6,6 +6,10 @@ class Conversation extends Model {
     super.init(
       {
         user_id: Sequelize.INTEGER,
+        last_interaction: {
+          type: Sequelize.DATE,
+          defaultValue: new Date(),
+        }
       },
       {
         sequelize
