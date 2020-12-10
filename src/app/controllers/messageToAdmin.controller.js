@@ -31,9 +31,13 @@ class MessageController {
 
   async index(request, response) {
     const userId = request.userId;
+    const { 
+      limit = 20, 
+      olderThan = new Date(),
+    } = request.query;
 
     try {
-      const messages = await UserMessageService.getUserMessages(userId);
+      const messages = await UserMessageService.getUserMessages(userId, limit, olderThan);
       
       return response.json(messages);
     } catch(err) {

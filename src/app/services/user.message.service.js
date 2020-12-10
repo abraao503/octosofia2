@@ -20,34 +20,45 @@ class UserMessageService {
     });
 
     if(!senderIsAdmin){
-      await ConversationService.createConversation(senderId);
+      await ConversationService.createOrUpdateConversation(senderId);
     }
 
     return userMessage.toJSON();
   }
 
-  async getUserMessages(userId) {
+  async getUserMessages(userId, limit, startDate) {
     const messages = await UserMessage.findAll({
-      where: { [Op.or]: [{ sender_id: userId }, { recipient_id: userId }] },
+      where: { 
+        [Op.or]: [
+          { sender_id: userId }, { recipient_id: userId }
+        ],
+        createdAt: {
+          [Op.lt]: startDate,
+        },
+      },
       include: {
-        model: Message,
+        model: Message, 
         as: 'message'
       },
       order: [
         ['createdAt', 'desc']
       ],
+      limit,
     })
 
     return messages;
   }
 
-  async getAdminMessages(userId) {
+  async getAdminMessages(userId, limit, startDate) {
     const messages = await UserMessage.findAll({
       where: { 
         [Op.or]: [
           { sender_id: userId }, 
           { recipient_id: userId }
         ],
+        createdAt: {
+          [Op.lt]: startDate,
+        },
       },
       include: {
         model: Message,
@@ -56,6 +67,7 @@ class UserMessageService {
       order: [
         ['createdAt', 'desc']
       ],
+      limit,
     })
 
     return messages;
